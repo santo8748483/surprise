@@ -9,6 +9,7 @@
       text-align: center;
       font-family: Arial;
       overflow: hidden;
+      margin: 0;
     }
 
     h1 {
@@ -33,6 +34,7 @@
     #yesBtn {
       background: #ff4d88;
       color: white;
+      position: relative;
     }
 
     #noBtn {
@@ -41,11 +43,20 @@
       color: #ff4d88;
     }
 
-    video {
+    /* Video styling */
+    .video-container {
       display: none;
+      justify-content: center;
+      align-items: center;
       margin-top: 20px;
-      width: 80%;
+    }
+
+    video {
+      width: 90%;
+      max-width: 500px;
+      height: auto;
       border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
     }
   </style>
 </head>
@@ -58,28 +69,29 @@
 <button id="yesBtn" class="btn">Yes 💖</button>
 <button id="noBtn" class="btn">No 😢</button>
 
-<br>
-
-<video id="myVideo" controls>
-  <source src="VID-20260419-WA0082.mp4" type="video/mp4">
-</video>
+<div class="video-container" id="videoContainer">
+  <video id="myVideo" controls>
+    <source src="VID-20260419-WA0082.mp4" type="video/mp4">
+  </video>
+</div>
 
 <script>
 let yesBtn = document.getElementById("yesBtn");
 let noBtn = document.getElementById("noBtn");
 let text = document.getElementById("text");
+let videoContainer = document.getElementById("videoContainer");
 
-// Position NO button initially
+// Initial NO button position
 noBtn.style.top = "60%";
 noBtn.style.left = "55%";
 
-// YES button works normally
+// YES button click
 yesBtn.addEventListener("click", playVideo);
 
 // NO button runs away
 noBtn.addEventListener("mouseover", () => {
-  let x = Math.random() * (window.innerWidth - 100);
-  let y = Math.random() * (window.innerHeight - 50);
+  let x = Math.random() * (window.innerWidth - 120);
+  let y = Math.random() * (window.innerHeight - 60);
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
@@ -93,8 +105,9 @@ function playVideo() {
   yesBtn.style.display = "none";
   noBtn.style.display = "none";
 
+  videoContainer.style.display = "flex";
+
   let video = document.getElementById("myVideo");
-  video.style.display = "block";
   video.play();
 
   video.onended = function() {
